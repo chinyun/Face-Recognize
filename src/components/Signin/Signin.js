@@ -24,17 +24,19 @@ class Signin extends React.Component {
 			body: JSON.stringify({
 				email: this.state.signInEmail,
 				password: this.state.signInPassword
-			})
+			})	
+		})	
+		.then(response => response.json())
+		.then(user => {
+			if(user.id){
+				this.props.loadUser(user);
+				this.props.onRouteChange('home');
+			} else {
+				alert('unable to signin');
+			}
 		})
-		this.props.onRouteChange('home');
-		// .then(response => response.json())
-		// .then(user => {
-		// 	if (user.id) {
-		// 	  this.props.loadUser(user)
-		// 	  this.props.onRouteChange('home');
-		// 	}
-		// })
-  }
+		.catch(err => alert('error signing in'))
+  	};
 
 	render() {
 		const { onRouteChange } = this.props;
@@ -82,8 +84,4 @@ class Signin extends React.Component {
 		); 
 	}
 }
-// const Signin = ({ onRouteChange }) => {
-	
-// }
-
 export default Signin;
