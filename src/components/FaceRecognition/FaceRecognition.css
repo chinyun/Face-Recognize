@@ -5,10 +5,9 @@
 	flex-wrap: wrap;
 	justify-content: center;
 	cursor: pointer;
-}
-	/*display: -webkit-box;
+	display: -webkit-box;
 	display: -ms-flexbox;
 	-ms-flex-wrap: wrap;
 	-webkit-box-pack: center;
 	-ms-flex-pack: center;
-	*/
+}

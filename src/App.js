@@ -9,6 +9,8 @@ import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Rank from './components/Rank/Rank';
 import './App.css';
 
+const url = 'https://salty-reaches-35582.herokuapp.com';
+// const url = 'http://localhost:3000';
 
 const particlesOptions = {
   particles: {
@@ -27,22 +29,22 @@ const particlesOptions = {
 
 const initialState ={
   input: '',
-      imageUrl:'',
-      box: {},
-      route: 'signin',
-      isSignedIn: false,
-      user:{
-        id:'',
-        name:'',
-        email:'',
-        entries: 0,
-        joined:''
-      }
+  imageUrl: '',
+  box: {},
+  route: 'signin',
+  isSignedIn: false,
+  user:{
+    id:'',
+    name:'',
+    email:'',
+    entries: 0,
+    joined:''
+  }
 }
 
 class App extends Component {
-  constructor( ) {
-    super( );
+  constructor() {
+    super();
     this.state = initialState;
   }
 
@@ -55,10 +57,10 @@ class App extends Component {
         entries: data.entries,
         joined: data.joined
       }
-    });
+    })
   };
 
-  calculateFaceLocation = ( data ) => {
+  calculateFaceLocation = (data) => {
     const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
     const image = document.getElementById('inputimage');
     const width = Number(image.width);
@@ -71,48 +73,48 @@ class App extends Component {
     }
   }
 
-  displayFaceBox = ( box ) => {
-    this.setState({ box: box});
+  displayFaceBox = (box) => {
+    this.setState({ box: box });
   }
 
-  onInputChange = (  event ) => {
+  onInputChange = (event) => {
     this.setState({ input: event.target.value });
   }
 
-  onPictureDetect =(  ) => {
+  onPictureDetect = () => {
     this.setState({ imageUrl: this.state.input });
-      fetch('https://salty-reaches-35582.herokuapp.com/imageurl', {
-        method: 'post',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-          input: this.state.input
-        })
+    fetch(`${url}/imageurl`, {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        input: this.state.input
       })
-      .then(response=> response.json())
-      .then(response => {
-        if(response){
-          fetch('https://salty-reaches-35582.herokuapp.com/image', {
-            method: 'put',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-              id: this.state.user.id
-            })
+    })
+    .then(response => response.json())
+    .then(response => {
+      if (response) {
+        fetch(`${url}/image`, {
+          method: 'put',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            id: this.state.user.id
           })
-            .then(response => response.json())
-            .then(count => {
-              this.setState(
-                Object.assign(this.state.user, {entries: count})
-              )
-            })
-            .catch(console.log)
-        };
-        this.displayFaceBox( this.calculateFaceLocation(response) )
-      })
-      .catch(err=> console.log(err));
+        })
+        .then(response => response.json())
+        .then(count => {
+          this.setState(
+            Object.assign(this.state.user, { entries: count })
+          )
+        })
+        .catch(console.log)
+      };
+      this.displayFaceBox( this.calculateFaceLocation(response) )
+    })
+    .catch(err=> console.log(err));
   }
 
-  onRouteChange = ( route ) => {
-    if ( route === 'signout' ){ 
+  onRouteChange = (route) => {
+    if (route === 'signout') { 
       this.setState(initialState);
       alert('You signed out!');
     } else if ( route === 'home' ) {
@@ -123,7 +125,7 @@ class App extends Component {
   }
     
   render() {
-    const { isSignedIn, imageUrl, route, box } = this.state;
+    const { isSignedIn, imageUrl, route, box, user } = this.state;
     return (
       <div className="App">
          <Particles 
@@ -136,10 +138,10 @@ class App extends Component {
         />
         { route === 'home'
           ? <div>
-              <Logo />
+              <Logo/>
               <Rank 
-                name={this.state.user.name} 
-                entries={this.state.user.entries}                
+                name={user.name} 
+                entries={user.entries}                
               />
               <ImageLinkForm
                 onInputChange={this.onInputChange}
@@ -147,10 +149,10 @@ class App extends Component {
               />
               <FaceRecognition 
                 box={box} 
-                imageUrl={imageUrl} />
+                imageUrl={imageUrl}
+              />
             </div>
-          : (
-             route === 'signin'
+          : ( route === 'signin'
              ? <Signin 
                   loadUser={this.loadUser} 
                   onRouteChange={this.onRouteChange}
