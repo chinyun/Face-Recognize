@@ -29,6 +29,9 @@ npm start
 
 - Use **React** and **ES6** to build logical statements.
 - Use **fetch api** to write api calls.
+- Handle face recognize function using **[Clarifai api](https://www.clarifai.com/)**.
+- Handle the interfaces of the app using **[tachyons](https://tachyons.io/)**.
+- Create a particle background using **[react-particles-js](https://www.npmjs.com/package/react-particles-js)**.
 
 ## Related
 

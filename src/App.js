@@ -9,8 +9,7 @@ import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Rank from './components/Rank/Rank';
 import './App.css';
 
-const url = 'https://salty-reaches-35582.herokuapp.com';
-// const url = 'http://localhost:3000';
+const url = 'http://localhost:3000';
 
 const particlesOptions = {
   particles: {
@@ -128,7 +127,7 @@ class App extends Component {
     const { isSignedIn, imageUrl, route, box, user } = this.state;
     return (
       <div className="App">
-         <Particles 
+        <Particles 
           className='particles'
           params={particlesOptions}
         />
