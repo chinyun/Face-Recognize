@@ -1,6 +1,6 @@
 # Face-Recognize
 
-Face Recognize is a project that use **[Clarifai api](https://www.clarifai.com/)** to recognize human face in a picture, mainly built with **React** and **Node.js**, this repo is the front-end part of the project.
+Face Recognize is a project that provide the function of recognizing human face in a picture. Just input an image url then it will recognize it for you. This repo is the front-end part of the project, built with React.
 
 The app is already deployed on Heroku, you can view the live demo here: **[face-recognize](https://face-recognize.herokuapp.com)**.
 > Notes: this project is under optimizing and it is rrecommended not to use vital personal information to register or communicate with the database.
